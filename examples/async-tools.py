@@ -58,6 +58,8 @@ async def main():
     messages=messages,
     tools=[add_two_numbers, subtract_two_numbers_tool],
   )
+  print('Response:', response.message.content)
+  print('Tool calls:', response.message.tool_calls)
 
   if response.message.tool_calls:
     # There may be multiple tool calls in the response
