@@ -54,7 +54,7 @@ async def main():
   client = ollama.AsyncClient()
 
   response: ChatResponse = await client.chat(
-    'llama3.1',
+    'llama3.2',
     messages=messages,
     tools=[add_two_numbers, subtract_two_numbers_tool],
   )
@@ -78,7 +78,7 @@ async def main():
     messages.append({'role': 'tool', 'content': str(output), 'name': tool.function.name})
 
     # Get final response from model with function outputs
-    final_response = await client.chat('llama3.1', messages=messages)
+    final_response = await client.chat('llama3.2', messages=messages)
     print('Final response:', final_response.message.content)
 
   else:

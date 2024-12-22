@@ -16,12 +16,16 @@ class FriendList(BaseModel):
 
 async def main():
   client = AsyncClient()
+  schema = FriendList.model_json_schema()
+  print(schema)
+
   response = await client.chat(
-    model='llama3.1:8b',
+    model='llama3.2',
     messages=[{'role': 'user', 'content': 'I have two friends. The first is Ollama 22 years old busy saving the world, and the second is Alonso 23 years old and wants to hang out. Return a list of friends in JSON format'}],
-    format=FriendList.model_json_schema(),  # Use Pydantic to generate the schema
+    format=schema,  # Use Pydantic to generate the schema
     options={'temperature': 0},  # Make responses more deterministic
   )
+  print(response.message.content)
 
   # Use Pydantic to validate the response
   friends_response = FriendList.model_validate_json(response.message.content)
